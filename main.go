@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"strconv"
 
 	"google.golang.org/api/option"
 	"google.golang.org/api/sheets/v4"
@@ -16,6 +17,25 @@ type Data struct {
 	P1        string
 	P2        string
 	P3        string
+}
+
+func studentStatus(student Data) {
+	p1, _ := strconv.Atoi(student.P1)
+	p2, _ := strconv.Atoi(student.P2)
+	p3, _ := strconv.Atoi(student.P3)
+	grade := (p1 + p2 + p3) / 3
+
+	status := ""
+
+	if grade >= 70 {
+		status = "Aprovado!"
+	} else if grade >= 50 && grade < 70 {
+		status = "Recuperação!"
+	} else {
+		status = "Reprovado!"
+	}
+
+	println(status)
 }
 
 func main() {
@@ -59,6 +79,8 @@ func main() {
 		}
 	}
 
-	fmt.Println(dataArray[4].Aluno)
+	fmt.Println(dataArray[19])
+
+	studentStatus(dataArray[19])
 
 }
